@@ -27,7 +27,7 @@ h5 {
 }
 /*---------chat window---------------*/
 .container{
-    max-width:900px;
+    max-width:100%;
 }
 .inbox_people {
 	background: #fff;
@@ -38,7 +38,8 @@ h5 {
 }
 
 .inbox_msg {
-	border: 1px solid #ddd;
+	border: 0px solid #ddd;
+  padding: 10px
 	clear: both;
 	overflow: hidden;
 }
@@ -62,7 +63,7 @@ h5 {
 .headind_srch {
 	padding: 10px 29px 10px 20px;
 	overflow: hidden;
-	border-bottom: 1px solid #c4c4c4;
+	border-bottom: 0px solid #c4c4c4;
 }
 
 .recent_heading h4 {
@@ -140,6 +141,7 @@ h5 {
 	border-bottom: 1px solid #ddd;
 	margin: 0;
 	padding: 18px 16px 10px;
+  background: #DDDDDD;
 }
 
 .inbox_chat {
@@ -185,18 +187,18 @@ h5 {
 }
 
 .received_withd_msg {
-	width: 57%;
+	width: 56%;
 }
 .mesgs_padding{
   padding: 20px 15px 10px 25px;
 }
 .mesgs{
 	float: left;
-	width:70%;
+	width:100%;
 }
 .sent_msg {
 	float: right;
-	width: 46%;
+	width: 56%;
 }
 
 .sent_msg p {

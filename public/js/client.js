@@ -138,7 +138,7 @@ window.onload = function(){
       messageHistory.innerHTML = '<div class="update_chat danger rotate"><p class="update_chat">ERROR: ' + newMessage + '</p></div>' + messageHistory.innerHTML;
     }
     else if(receiverID===senderID){
-      messageHistory.innerHTML = '<div class="outgoing_msg rotate"><div class="sent_msg"><p>' + newMessage + '</p></div><div></div></div>' + messageHistory.innerHTML;
+      messageHistory.innerHTML = '<div class="outgoing_msg rotate"><div class="sent_msg"><p><b>' + senderName + ':</b> ' + newMessage + '</p></div><div></div></div>' + messageHistory.innerHTML;
     }
     else {
       messageHistory.innerHTML = '<div class="incoming_msg rotate"><div class="received_msg"><div class="received_withd_msg"><p><b>' + senderName + ':</b> ' + newMessage + '</p></div></div></div>' + messageHistory.innerHTML;
@@ -147,15 +147,31 @@ window.onload = function(){
 
     messageInput.value = "";
     usernameList.innerHTML = "";
-
+    var innerInnerHTML = '';
+    var iconHTML = '';
+    var agentHTML = '<div class="chat_list col"><div class="chat_people"><div class="chat_ib row"><div class="col"><span style="color:white;" id="agent-info"><i class="fas fa-headset fa-4x"></i></span></div><div class="col"><div class="row"><h5>AGENT</h5></div><div class="row"><p>...awaiting...</p></div></div></div></div></div>';
+    var customerHTML = '<div class="chat_list col"><div class="chat_people"><div class="chat_ib row"><div class="col"><span style="color:white;" id="customer-info"><i class="fas fa-user fa-4x"></i></span></div><div class="col"><div class="row"><h5>CUSTOMER</h5></div><div class="row"><p>...awaiting...</p></div></div></div></div></div>';
     for (var i=0; i< usernames.length; i++){
       var user = usernames[i];
-      var activeChatDiv = '<div class="chat_list">';
+      var activeChatDiv = '<div class="chat_list col">';
       if(senderID===user.userid){
-        activeChatDiv = '<div class="chat_list active_chat">';
+        activeChatDiv = '<div class="chat_list active_chat col">';
       }
-      usernameList.innerHTML += activeChatDiv + '<div class="chat_people"><div class="chat_ib"><h5>' + user.username + '</h5><p>' + user.languagename + '</div></div></div>';
+      if(user.username=="Agent"){
+          agentHTML= activeChatDiv + '<div class="chat_people"><div class="chat_ib row"><div class="col"><span style="color:white;" id="agent-info"><i class="fas fa-headset fa-4x"></i></span></div><div class="col"><div class="row"><h5>AGENT</h5></div><div class="row"><p>' + user.languagename + '</p></div></div></div></div></div>';
+      }
+      if(user.username=="Customer"){
+          customerHTML= activeChatDiv + '<div class="chat_people"><div class="chat_ib row"><div class="col"><span style="color:white;" id="customer-info"><i class="fas fa-user fa-4x"></i></span></div><div class="col"><div class="row"><h5>CUSTOMER</h5></div><div class="row"><p>' + user.languagename + '</p></div></div></div></div></div>';
+      }
+    //  innerInnerHTML += activeChatDiv + '<div class="chat_people"><div class="chat_ib"><h5>' + iconHTML + '</h5><p>' + user.languagename + '</div></div></div>';
     }
+    if(myUsername=="Agent"){
+      innerInnerHTML = customerHTML + agentHTML;
+    }
+    else if (myUsername=="Customer"){
+      innerInnerHTML = agentHTML + customerHTML;
+    }
+    usernameList.innerHTML = '<div class="container"><div class="row">' + innerInnerHTML + '</div></div>';
   });
 
   messageSend.onclick = function() {
@@ -167,7 +183,7 @@ window.onload = function(){
         sendername: myUsername
       };
       socket.emit('sendMessage', sendMessageObject);
-      console.log("message sent: " + messageInput.value);
+    //  console.log("message sent: " + messageInput.value);
       concatText = '';
       newText = '';
       messageInput.value = '';
@@ -359,7 +375,6 @@ window.onload = function(){
     if(receiverID){
         socket.emit("leaveChat", leaveChatObject);
     }
-
   });
 };
 

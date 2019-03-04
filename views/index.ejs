@@ -47,27 +47,19 @@
       </div>
     </div>
     </div>
-    <div class="p-3" id="chat-div">
+    <div class="p-1" id="chat-div">
+      <div class="row justify-content-md-center"><button class="btn btn-link" type="button" id="start-streaming"><span style="color:DodgerBlue;" class="start_streaming_btn" id="microphone-icon"><i class="fas fa-microphone fa-2x"></i></span></button></div>
+      <div id="username-list"></div>
       <div class="inbox_msg">
-    	  <div class="inbox_people">
-    	    <div class="headind_srch">
-    		    <div class="recent_heading">
-    		      <h4>Members</h4>
-    		    </div>
-    	    </div>
-    	    <div class="inbox_chat scroll">
-            <div id="username-list"></div>
-    	    </div>
-    	  </div>
         <div class="mesgs">
 	        <div class="mesgs_padding msg_history" id="message-history"></div>
           <div class="input-group bottom-align-text">
-            <div class="input-group-prepend">
-              <button class="btn btn-outline-secondary" type="button" id="start-streaming" ><span style="color:DodgerBlue;" class="start_streaming_btn" id="microphone-icon"><i class="fas fa-microphone"></i></span></button>
-            </div>
+
+
+
             <input type="text" class="form-control write_msg" placeholder="" placeholder="Type a message" id="message-input">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="message-send" ><i class="fas fa-paper-plane"></i></button>
+              <button class="btn btn-secondary" type="button" id="message-send" ><i class="fas fa-paper-plane"></i></button>
             </div>
           </div>
       </div>
