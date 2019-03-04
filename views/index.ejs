@@ -15,24 +15,33 @@
   <body>
     <div class="row justify-content-md-center p-4"><h2>Conversation Translation</h2></div>
     <div id="join-div"><div class="p-4">
-      <div class="row justify-content-md-center">
+      <!--<div class="row justify-content-md-center">
         <h5>Username</h5>
       </div>
+
       <div class="form-group row justify-content-md-center">
         <div class="col-xs-3">
           <input type="text" class="write_msg form-control" placeholder="Enter Username" id="username-input"/>
         </div>
-      </div>
+      </div>-->
       <div id='join-bottom-div'>
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center p-3">
           <h5>Select Your Language and Voice</h5>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center p-3">
           <div class="form-group" id="voice-list-select-div"></div>
         </div>
+        <div class="form-group row justify-content-md-center p-2">
+          <div class="row justify-content-md-center">
+            <h5>Begin conversation as:</h5>
+          </div>
+        </div>
         <div class="form-group row justify-content-md-center">
-          <div class="col-xs-3">
-            <button class="btn btn-info" style="background-color: DodgerBlue;" type="button" id="join-btn">Join Chat</button>
+          <div class="col-xs-3 p-4">
+            <button class="btn btn-info" style="background-color: DodgerBlue; width: 120px; height: 120px;" type="button" id="join-agent-btn"><span style="color:white;" class="start_streaming_btn" id="headset-icon"><i class="fas fa-headset fa-4x"></i></span>AGENT</button>
+          </div>
+          <div class="col-xs-3 p-4">
+            <button class="btn btn-info" style="background-color: DodgerBlue; width: 120px; height: 120px;" type="button" id="join-customer-btn"><span style="color:white;" class="start_streaming_btn" id="customer-icon"><i class="fas fa-user fa-4x"></i></span>CUSTOMER</button>
           </div>
         </div>
       </div>

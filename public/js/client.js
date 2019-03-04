@@ -4,7 +4,8 @@ window.onload = function(){
   var messageSend = document.getElementById('message-send');
   var messageHistory = document.getElementById('message-history');
   var usernameInput = document.getElementById('username-input');
-  var joinButton = document.getElementById('join-btn');
+  var joinAgentButton = document.getElementById('join-agent-btn');
+  var joinCustomerButton = document.getElementById('join-customer-btn');
   var joinDiv = document.getElementById('join-div');
   var chatDiv = document.getElementById('chat-div');
   var usernameList = document.getElementById('username-list');
@@ -34,6 +35,7 @@ window.onload = function(){
   var context;
 
   socket.emit('getVoiceList', 1);
+
   socket.on('voicelist', function(data) {
 
     var voicelist = JSON.parse(data);
@@ -60,9 +62,38 @@ window.onload = function(){
     joinBottomDiv.style.visibility = "visible";
   });
 
-  joinButton.onclick = function(){
+  socket.emit('getAvailableRoles', 1);
 
-    myUsername = usernameInput.value;
+  socket.on('availableRoles', function(data) {
+    if (data.length==0){
+      joinAgentButton.removeAttribute("disabled", "");
+      joinCustomerButton.removeAttribute("disabled", "");
+    }
+    if (data.length==2){
+      joinAgentButton.setAttribute("disabled", "");
+      joinCustomerButton.setAttribute("disabled", "");
+    }
+    else {
+      if(data[0]=="Agent"){
+        joinAgentButton.setAttribute("disabled", "");
+      }
+      if(data[0]=="Customer"){
+        joinCustomerButton.setAttribute("disabled", "");
+      }
+    }
+  });
+
+  joinAgentButton.onclick = function(){
+    myUsername = "Agent";
+    joinFunction();
+  }
+  joinCustomerButton.onclick = function(){
+    myUsername = "Customer";
+    joinFunction();
+  }
+
+  function joinFunction(){
+
     var languageVoiceSelect = document.getElementById('LanguageVoiceSelect');
 
     var translateLang = languageVoiceSelect.value;
@@ -124,16 +155,6 @@ window.onload = function(){
         activeChatDiv = '<div class="chat_list active_chat">';
       }
       usernameList.innerHTML += activeChatDiv + '<div class="chat_people"><div class="chat_ib"><h5>' + user.username + '</h5><p>' + user.languagename + '</div></div></div>';
-    }
-  });
-  addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-      if (joinBool) {
-        joinButton.click();
-      }
-      else {
-      //  messageSend.click();
-      }
     }
   });
 
@@ -335,7 +356,10 @@ window.onload = function(){
       senderid: receiverID,
       username: myUsername,
     };
-    socket.emit("leaveChat", leaveChatObject);
+    if(receiverID){
+        socket.emit("leaveChat", leaveChatObject);
+    }
+
   });
 };
 

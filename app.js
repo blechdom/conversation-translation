@@ -61,6 +61,19 @@ io.on("connection", function(socket) {
     getList();
   });
 
+  socket.on('getAvailableRoles', function(data) {
+    updateRoles();
+  });
+
+  function updateRoles() {
+    var roles = [];
+    for(var i=0; i<user_array.length; i++){
+      roles[i] = user_array[i].username;
+    }
+    socket.emit("availableRoles", roles);
+    socket.broadcast.emit("availableRoles", roles);
+  }
+
   socket.on('joinChat', function(data) {
     var uniqueUser = true;
 
@@ -88,6 +101,7 @@ io.on("connection", function(socket) {
       console.log(data.username + " joined the conversation with ID: " + socket.id);
 
       translateAndSendMessage(joinMessage);
+      updateRoles();
     }
 
   });
@@ -144,7 +158,7 @@ io.on("connection", function(socket) {
 
       var senderID = data.senderid;
       var username = data.username;
-
+      
       for(var i = 0; i < user_array.length; i++) {
         if(user_array[i].userid == senderID) {
             user_array.splice(i, 1);
@@ -165,6 +179,7 @@ io.on("connection", function(socket) {
       } catch(err) {
         console.error('caught while emitting:', err.message);
       }
+      updateRoles();
 
   });
 
