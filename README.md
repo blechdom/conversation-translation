@@ -1,5 +1,5 @@
-    npm install
+* npm install
 
-    npm start
+* npm start (for localhost deployment)
 
-    npm run deploy
+* npm run deploy (for gcloud deployment)
